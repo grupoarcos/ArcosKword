@@ -3,16 +3,14 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Copia apenas os arquivos necessários para instalar dependências
 COPY package*.json ./
 
-# Instala dependências
-RUN npm install
+# Instala dependências ignorando conflitos de peer deps
+RUN npm install --legacy-peer-deps
 
-# Copia o restante do projeto
 COPY . .
 
-# Build do projeto
+# Gera build de produção
 RUN npm run build
 
 # Etapa 2: imagem final
@@ -21,14 +19,14 @@ FROM node:18-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
-# Copia apenas o necessário do builder
+# Copia apenas o necessário
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.js ./
 
-# Instala apenas dependências de produção
-RUN npm install --omit=dev
+# Instala dependências de produção (também ignorando conflitos)
+RUN npm install --omit=dev --legacy-peer-deps
 
 EXPOSE 3000
 
