@@ -41,9 +41,8 @@ export function AdminLoginGuard({ children }: AdminLoginGuardProps) {
       }
 
       // Pega as credenciais das variáveis de ambiente
-      const validUsername = process.env.NEXT_PUBLIC_ADMIN_USERNAME || "admin";
-      const validPassword =
-        process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "admin123";
+      const validUsername = "admArticolo@arcosscale.com.br";
+      const validPassword = "FFteadsa48";
 
       if (username === validUsername && password === validPassword) {
         sessionStorage.setItem("admin_authenticated", "true");
