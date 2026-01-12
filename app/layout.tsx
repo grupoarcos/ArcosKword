@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Articollo - AI Research & Content Creation Assistant",
+    default: "Artigos - Arcos Scale",
     template: "%s | ",
   },
   description:
